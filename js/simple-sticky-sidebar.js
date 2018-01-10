@@ -16,11 +16,11 @@ function setStyle(element, cssProperty) {
 function destroySticky(element){
 	setStyle(element, {
 		top 		: '',
-			left		: '',
-			bottom		: '',
-			width		: '',
-			position	: ''
-		});
+		left		: '',
+		bottom		: '',
+		width		: '',
+		position	: ''
+	});
 }
 
 function getOffset(el) {
