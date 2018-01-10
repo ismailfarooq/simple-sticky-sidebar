@@ -36,7 +36,7 @@ function simpleStickySidebar(element, options) {
 	// Global options
 	var sticky = document.querySelector(element);
 	var container = document.querySelector(options.container);
-	var topSpace = options.topSpace;
+	var topSpace = options.topSpace ? options.topSpace : 0;
 
 	// vars
 	var $window = window;
