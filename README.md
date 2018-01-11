@@ -1,5 +1,5 @@
 # Simple Sticky Sidebar
-Simple light weight and high performance sticky sidebar like facebook
+Simple light weight and high performance sticky sidebar like facebook and WordPress menu
 
 ### Usage
 you can use the following JavaScript to call the script
