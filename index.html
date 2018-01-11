@@ -9,11 +9,11 @@
 		<header class="main-header">
 			<div class="container"><h3>Simple Sticky Sidebar</h3></div>
 		</header>
-		<div class="header-inner"><h1>Simple Sticky Sidebar</h1></div>
+		<div class="area"><h1>Simple Sticky Sidebar</h1></div>
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="sidebar">
-					<div class="sidebar-inner" style="height: 1200px;">
+					<div class="sidebar-inner">
 						<div class="text">Sidebar Content</div>
 						<div class="text">Sidebar Content</div>
 						<div class="text">Sidebar Content</div>
@@ -55,7 +55,8 @@
 	<script type="text/javascript">
 	    simpleStickySidebar('.sidebar-inner', {
 	        container: '.sidebar',
-	        topSpace: document.querySelector('.main-header').getBoundingClientRect().height // or any no i.e 20
+	        topSpace: document.querySelector('.main-header').getBoundingClientRect().height + 20, // or any no i.e 20
+	        bottomSpace : 20
 	    });
 	</script>
 </body>
