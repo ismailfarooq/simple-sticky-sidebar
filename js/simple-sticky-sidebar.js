@@ -34,28 +34,29 @@ function getOffset(el) {
 function simpleStickySidebar(element, options) {
 	
 	// Global options
-	var sticky = document.querySelector(element);
-	var container = document.querySelector(options.container);
-	var topSpace = options.topSpace ? options.topSpace : 0;
+	var sticky = document.querySelector(element); // Sticky sidebar
+	var container = document.querySelector(options.container); // Sticky sidebar container
+	var topSpace = options.topSpace ? options.topSpace : 0; // Top spacing after sticky
+	var bottomSpace = options.bottomSpace ? options.bottomSpace : 0; // Bottom spacing after sticky
 
 	// vars
-	var $window = window;
-	var stickyHeight = sticky.getBoundingClientRect().height;
-	var stickyOffsetTop = getOffset(sticky).top;
-	var stickyOffsetBottom = getOffset(sticky).top + sticky.height;
-	var stickyOffsetLeft = getOffset(sticky).left;
-	var topFixed = false;
-	var bottomFixed = false;
-	var lastScrollVal = 0;
+	var $window = window; // window
+	var stickyHeight = sticky.getBoundingClientRect().height; // Sticky sidebar height
+	var stickyOffsetTop = getOffset(sticky).top; // Sticky sidebar top offset
+	var stickyOffsetBottom = getOffset(sticky).top + sticky.getBoundingClientRect().height; // Sticky sidebar bottom offset
+	var stickyOffsetLeft = getOffset(sticky).left; // Sticky sidebar left offset
+	var topFixed = false; // checkpoint
+	var bottomFixed = false; // checkpoint
+	var lastScrollVal = 0; // checkpoint
 
 	// scrolling
 	window.addEventListener('scroll', function(event) {
 		var scrollTop = window.scrollY;
-		// when scroll position touch the "Sticky Element"
+		// when scroll position touch the "Sidebar"
 		if(scrollTop > stickyOffsetTop - topSpace){
-			// if "Sticky Element" smaller than viewport
+			// if "Sidebar" smaller than viewport
 			if(stickyHeight <= $window.innerHeight - topSpace){
-				// fix "Sticky Element" from top
+				// fix "Sidebar" from top
 		   		setStyle(sticky, {
 		   			top 		: topSpace + "px",
 		   			left		: stickyOffsetLeft + "px",
@@ -63,21 +64,17 @@ function simpleStickySidebar(element, options) {
 		   			width		: sticky.getBoundingClientRect().width + "px",
 		   			position	: 'fixed'
 		   		});
-
 			}
 			else {
 				// scrolling down
 				if (scrollTop > lastScrollVal){
-					// update bottom offset
-					stickyOffsetBottom = getOffset(sticky).top + sticky.getBoundingClientRect().height;
-
-					// if "Sticky Element" fixed from top
+					// if "Sidebar" fixed from top during scrolling down
 					if(topFixed){
-						// get new offset of "Sticky Element" if its become fixed from top
+						// get new offset of "Sidebar"
 						var absoluteStickyOffsetTop = getOffset(sticky).top;
 
 				   		setStyle(sticky, {
-				   			top 		: absoluteStickyOffsetTop - getOffset(container).top + "px", // get relative offset
+				   			top 		: absoluteStickyOffsetTop - getOffset(container).top + "px",
 				   			left		: '',
 				   			bottom		: '',
 				   			width		: '',
@@ -85,25 +82,24 @@ function simpleStickySidebar(element, options) {
 				   		});
 						topFixed = false;	
 					}
-
-					// fix "Sticky Element" from bottom when bottom area visible in viewport
+					// make "Sidebar" fixed from bottom when bottom area visible in viewport
 					if(scrollTop > stickyOffsetBottom - $window.innerHeight){
 						setStyle(sticky, {
 				   			top 		: '',
 				   			left		: stickyOffsetLeft + "px",
-				   			bottom		: "0px",
+				   			bottom		: bottomSpace + "px",
 				   			width		: sticky.getBoundingClientRect().width + "px",
 				   			position	: 'fixed'
 				   		});
 				   		bottomFixed = true;
 					}
-				} else {
-					// get new offset of "Sticky Element" if its fixed from bottom
+				} else { // scrolling up
+					// get new offset of "Sidebar" during scrolling up
 					var absoluteStickyOffsetTop = getOffset(sticky).top;
-					// stuck relatively while scrolling up if "Sticky Element" fixed from bottom
+					//  if "Sidebar" fixed from bottom, stop sticky to its position
 					if(bottomFixed){
 						setStyle(sticky, {
-				   			top 		: absoluteStickyOffsetTop - getOffset(container).top + "px", // get relative offset
+				   			top 		: absoluteStickyOffsetTop - getOffset(container).top + "px",
 				   			left		: '',
 				   			bottom		: '',
 				   			width		: '',
@@ -111,7 +107,7 @@ function simpleStickySidebar(element, options) {
 				   		});
 						bottomFixed = false;	
 					}
-					// make "Sticky Element" fixed from top
+					// make "Sidebar" fixed from top when top area visible in viewport
 					if(scrollTop < absoluteStickyOffsetTop - topSpace){
 						setStyle(sticky, {
 				   			top 		: topSpace + "px",
@@ -126,6 +122,7 @@ function simpleStickySidebar(element, options) {
 				lastScrollVal = scrollTop;
 			}
 		} else {
+			// make sidebar to default position
 			destroySticky(sticky);
 		}
 	});
