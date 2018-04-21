@@ -48,6 +48,10 @@ function simpleStickySidebar(element, options) {
 	var topFixed = false; // checkpoint
 	var bottomFixed = false; // checkpoint
 	var lastScrollVal = 0; // checkpoint
+	
+	var getStickyHeight = function() {
+		return document.querySelector(element).getBoundingClientRect().height;
+	};
 
 	// scrolling
 	window.addEventListener('scroll', function(event) {
@@ -55,7 +59,7 @@ function simpleStickySidebar(element, options) {
 		// when scroll position touch the "Sidebar"
 		if(scrollTop > stickyOffsetTop - topSpace){
 			// if "Sidebar" smaller than viewport
-			if(stickyHeight <= $window.innerHeight - topSpace){
+			if(getStickyHeight() <= $window.innerHeight - topSpace){
 				// fix "Sidebar" from top
 		   		setStyle(sticky, {
 		   			top 		: topSpace + "px",
